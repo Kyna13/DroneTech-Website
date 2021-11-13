@@ -143,7 +143,7 @@ def signin():
 
         error_text = "Wrong username or password entered. Please try again."
         
-    return render_template("login.html", signin_form=signin_form, error_text = error_text, num_key = "false")
+    return render_template("login.html", signin_form=signin_form, error_text = error_text, num_key = "false", wishlist = "false")
 
 @app.route('/signout')
 def signout():
