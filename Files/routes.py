@@ -278,4 +278,4 @@ def error_404(e):
     return render_template("404.html", num_key = "false", wishlist = "false")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
