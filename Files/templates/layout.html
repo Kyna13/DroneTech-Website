@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet'>
+
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>         
+        <nav>
+            <div class="nav_mobile_container">
+            <h1 id="nav_title">Drone<b>Tech</b></h1>
+            <button class="toggler" id="toggler" type="button">
+                <div class="toggler_part"></div>
+                <div class="toggler_part"></div>
+                <div class="toggler_part"></div>
+            </button>
+            </div>
+            <ul type="square" id="nav_menu">
+                <li id="home_link"><a href = "{{ url_for('home', num_key=num_key, wishlist=wishlist) }}" class="nav_link">Home</a></li>    
+                <li id="products_link"><a href = "{{ url_for('products', num_key=num_key, wishlist=wishlist) }}" class="nav_link">Products</a></li>
+
+                {% if num_key == "false" %}
+    
+                <li id="signin_link"><a href = "{{ url_for('signin') }}" class="nav_link">Sign In</a></li>    
+                <li id="register_link"><a href = "{{ url_for('register') }}" class="nav_link">Register</a></li>
+
+                {% endif %}
+
+                {% if num_key != "false" %}
+    
+                <li id="wishlist_link"><a href = "{{ url_for('wishlist', num_key = num_key, wishlist=wishlist) }}" class="nav_link">Wishlist</a></li>
+                <li id="signout_link"><a href = "{{ url_for('signout') }}" class="nav_link">Signout</a></li>    
+
+                {% endif %}
+                
+            </ul>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+
+        <script>
+          
+            // Nav bar toggle script
+
+            var toggler_clicked = 0; 
+            function clickHandler(){
+                if (toggler_clicked % 2) {
+                    document.getElementById('nav_menu').style.display = "none";
+                } else{
+                    document.getElementById('nav_menu').style.display = "block";
+                }
+                toggler_clicked++;
+            }
+
+            document.getElementById('toggler').addEventListener('click', clickHandler);
+
+            if(document.getElementById('toggler').clicked == true){
+                alert("Button Clicked!")
+                document.getElementById('nav_menu').style.display = "block";
+            }
+        </script>
+
+    </body>
+</html>

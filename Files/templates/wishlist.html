@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>Wishlist</title>
+    <style>
+        #search_form{
+           margin-bottom: 20px;
+        }
+
+        #products_container{
+            margin: 0 auto;
+            margin-top: 30px;
+            width: fit-content;
+        }
+
+        .product_content{
+            max-height: 700px;
+            min-height: 275px;
+            margin: 0 auto;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .product_div{
+            max-height: 700px;
+            padding: 0px 0px 25px 0px;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+
+        .buttons_container{
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        #wishlist_title{
+            color: #fc5089;
+        }
+
+        .wishlist_btn.buy_btn{
+            border-radius: 3px;
+            padding: 10px 15px;
+            margin-left: 10px;
+            width: max-content;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}    
+<div class="container">
+    <h1 class="header_title" id="wishlist_title">{{ username }}'s Wishlist</h1>
+    <div id="products_container">
+        {% for drone in drone_list %}
+        <div class="product_div wishlist_product_div">
+            <img class="product_img" src="{{ url_for('static', filename='images/Drone_Images/' + drone[0]) }}">
+            <div class="product_content">
+                <h1 class="product_heading">{{ drone[1] }}</h1>
+                <br>
+                <p class="product_description">{{ drone[3][0] }}<br>{{ drone[3][1] }}</p>
+                <div class="buttons_container">
+                    <a href="{{ drone[2] }}" target="_blank" class="buy_btn">Buy Now!</a>
+                    <a href="#" id="{{ drone[4] }}" class="buy_btn wishlist_btn">Remove</a>
+                </div>
+            </div>  
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+
+    var toggler_clicked_lst = []
+    var toggler_clicked = 0;
+        
+    var wishlist_str = "";
+    var wishlist = [];
+    reset_wishlist();
+
+    function reset_wishlist(){
+        wishlist_str = String(window.location.href).split("/").at(-1);
+        wishlist = wishlist_str.split("-");
+    }
+
+    function clickHandler(){
+        var toggler_clicked = toggler_clicked_lst[this.getAttribute("id")];
+        if (this.style.backgroundColor == "rgb(252, 80, 137)"){
+            reset_wishlist();
+            this.style.backgroundColor = "#ffffff";
+            wishlist.splice(wishlist.indexOf(this.getAttribute("id")), 1);
+            toggler_clicked_lst[(this.getAttribute("id"))] = 0;
+            wishlist_str = wishlist.join("-");
+
+            url_lst = String(window.location.href).split("/");
+            url_str = url_lst.slice(0, -1).join("/") + "/" + wishlist_str;
+            window.location.href = url_str;
+        } else{
+            reset_wishlist();
+            this.style.backgroundColor = "#fc5089";
+            toggler_clicked_lst[(this.getAttribute("id"))] = 1;
+            wishlist.push(this.getAttribute("id"));
+            wishlist_str = wishlist.join("-");
+
+            url_lst = String(window.location.href).split("/");
+            url_str = url_lst.slice(0, -1).join("/") + "/" + wishlist_str;
+            window.location.href = url_str;
+            document.getElementById('4').scrollIntoView(true);
+        }
+    }
+
+    wishlistBtnClass = document.getElementsByClassName("wishlist_btn");
+    for (i = 0; i < wishlistBtnClass.length; i++) {
+        wishlistBtnClass[i].addEventListener('click', clickHandler);
+        wishlistBtnClass[i].style.backgroundColor = "#fc5089"
+        toggler_clicked_lst.push(1);
+    }
+</script>
+{% endblock %}

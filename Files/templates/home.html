@@ -1,0 +1,151 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
+    <style>
+        #image_div1{
+            background-image: url("{{ url_for('static', filename='images/drone1.jpg') }}");
+        }
+
+        #image_div2{
+            background-image: url("{{ url_for('static', filename='images/drone2.jpg') }}");
+        }
+
+        #image_div3{
+            background-image: url("{{ url_for('static', filename='images/drone3.jpg') }}");
+        }
+
+        .quote{
+            background-image: url("{{ url_for('static', filename='images/quote.png') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+                
+        .p-light{
+            color: rgb(201, 201, 201);
+        }
+
+        @media (max-width: 767px){
+            .quote{
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}   
+<video autoplay loop id="myVideo" muted plays-inline>
+    <source src="{{ url_for('static', filename='images/videoplayback.mp4') }}" type="video/mp4" >
+</video>  
+<div class="container home_container">
+    <div class="header">
+        
+        <p class="drone home-title">DroneTech</p>
+    
+        <p class="drone12 home-text">A company aspiring to help to-be drone owners get their perfect drone.  
+        </p>
+    
+    </div>
+    
+       <div class="section-container">
+             <div class="columns image" id="image_div1">
+                &nbsp;
+             </div>
+             <div class="columns content">
+                <div class="content-container">
+                   <h5>Remarkable Flight</h5>
+                   <p>
+                    There are different variations in the frame and construction of drones, but the essential components that every drone must have is a waterproof motor frame, flight and motor controllers, motors, transmitter and receiver, propellers, and a battery or any other source of energy. </p>
+                   <p>
+                    What makes these unmanned aerial vehicles remarkable is their great flight capability. Drones have ultra-stable flight, and they can hover and perform different acrobatics in the air. How far you can fly your drone depends on the space you are flying it, as well as the line of sight. </p>                   </p>
+                </div>
+             </div>
+          </div>
+          <div class="section-container">
+             <div class="columns content">
+                <div class="content-container">
+                   <h5>Camera and Storage</h5>
+                   <p>
+                    The capability to capture excellent images and videos makes drones more popular among people in the current generation. A temporary storage facility in the drone enables you to store the images or videos before transferring them to a dependable storage location.                   </p>
+                   <p>
+                    For storage of images during a capture the manufacture usually provides you with a micro SD card. Presently, manufacturers are making drones that enable you to save images on your smartphone or stream the images or videos live. This enables you to capture the most captivating images that you have always desired of.                   </p>
+                </div>
+             </div>
+             <div class="columns image" id="image_div2">
+                &nbsp;
+             </div>
+          </div>
+          <div class="section-container">
+             <div class="columns image" id="image_div3">
+                &nbsp;
+             </div>
+             <div class="columns content">
+                <div class="content-container">
+                   <h5>Safety and Security</h5>
+                   <p>
+                    Security is an important factor in any thing you do. Even in your homestead you need to be secure. This feature is so important that the manufacturer cannot leave it out. Most drones in the market, expecially the best ones have this feature. In case of any emergency landing the drone cannot lose contact with the drone transmitter.
+                   </p>
+                   <p>
+                    For proper and efficient drone security it has propeller protector. The protectors enable the drone to evade distortion when it crashes. This feature also enables the drone to have a chance of survival during a crash. Consequently, if you are in the process of purchasing a drone then look for this feature first.                   </p>
+                </div>
+             </div>
+          </div>
+    
+    
+    <br/>
+    <div class="quote_container">
+        <div class="quote"></div>
+        <p class="p home-text">At DroneTech, we guild you thorugh the process of picking out the best drone so that you can have your perfect drone-mate.<p>
+          <br>
+          <p class="bold"><strong>— CEO, DroneTech Pvt. Ltd.</strong></p>
+          <br/>
+          <hr style="width:300px; margin:auto;"/>
+
+        </div>
+    </div>
+
+<footer class="footer-distributed">
+
+    <div class="footer-left">
+        
+      <h1 style="text-decoration: none; font-weight: 400;">Drone<b>Tech</b></h1>
+
+      <p class="footer-links p-light">
+        <a href="{{ url_for('products', num_key = num_key, wishlist = wishlist) }}">Products</a>
+        |
+        <a href="{{ url_for('register') }}">Sign up</a>
+        |
+        <a href="https://munchkinpress.com/should-i-buy-a-drone-8-awesome-reasons-to-get-one/">Why Drones</a>
+      </p>
+
+      <p class="footer-company-name">© DroneTech Pvt. Ltd.</p>
+    </div>
+
+    <div class="footer-center">
+
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+91 XXXXXXXXXX</p>
+      </div>
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="himanshuprajapati2009@gamil.com">dronetech@emailcom</a></p>
+      </div>
+    </div>
+    <div class="footer-right">
+      
+      <div class="footer-icons">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-youtube"></i></a>
+      </div>
+    </div>
+</footer>
+
+<script>
+
+</script>
+{% endblock %}

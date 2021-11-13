@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>Products</title>
+    <style> 
+        .product_page_container.container{
+            margin-top: 0px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}    
+<div class="container product_page_container">
+
+    <div id="products_header" class="">
+        <div id="products_header_content">
+            <h1 class="header_title">Products</h1>
+            <p class="header_body">Choose from our vast variety of drones to find out which one is the best combinations of slick and subtantial for you. Hope you have fun!</p>
+        </div>
+    </div>
+
+    <form method="POST" id="search_form">
+        {{ search_form.hidden_tag() }}
+        {{ search_form.search(placeholder="Filter Products", id="search_input") }}
+        {{ search_form.submit(class="submit_btn", id="search_submit") }}
+   </form>
+
+   <p id="search_error">{{ error }}</p>
+   {% for drone in drone_list %}
+   <div id="products_container">
+        <div class="product_div">
+            <img class="product_img" src="{{ url_for('static', filename='images/Drone_Images/' + drone[0]) }}">
+            <div class="product_content">
+                <h1 class="product_heading">{{ drone[1] }}</h1>
+                <br>
+                <p class="product_description">{{ drone[3][0] }}<br>{{ drone[3][1] }}</p>
+                <div class="buttons_container">
+                    <a href="{{ drone[2] }}" target="_blank" class="buy_btn">Buy Now!</a>
+
+                    {% if num_key != "false" %}
+                    <button href="#" id="{{ drone[4] }}" class="wishlist_btn"><img class="wishlist_icon" src="{{ url_for('static', filename='images/Wishlist_Icon.png') }}"></img></button>
+                    {% endif %}
+                </div>
+            </div>  
+        </div>
+   </div>
+   {% endfor %}
+
+</div>
+
+<script>
+
+    var toggler_clicked_lst = []
+    var toggler_clicked = 0;
+        
+    var wishlist_str = "";
+    var wishlist = [];
+    reset_wishlist();
+
+    
+    setTimeout(function () {
+        var scroll_value = $(window).scrollTop();
+        var scrollOffset = $("#" + wishlist_str.slice(-1)).offset().top;
+
+        document.documentElement.scrollTop = document.body.scrollTop = scrollOffset - 600;
+    }, 10);
+
+
+    function reset_wishlist(){
+        wishlist_str = String(window.location.href).split("/").at(-1);
+        wishlist = wishlist_str.split("-");
+    }
+
+    function clickHandler(){
+        var toggler_clicked = toggler_clicked_lst[this.getAttribute("id")];
+        if (this.style.backgroundColor == "rgb(252, 80, 137)"){
+            reset_wishlist();
+            this.style.backgroundColor = "#ffffff";
+            wishlist.splice(wishlist.indexOf(this.getAttribute("id")), 1);
+            toggler_clicked_lst[(this.getAttribute("id"))] = 0;
+            wishlist_str = wishlist.join("-");
+
+            url_lst = String(window.location.href).split("/");
+            url_str = url_lst.slice(0, -1).join("/") + "/" + wishlist_str;
+            window.location.href = url_str;
+        } else{
+            reset_wishlist();
+            this.style.backgroundColor = "#fc5089";
+            toggler_clicked_lst[(this.getAttribute("id"))] = 1;
+            wishlist.push(this.getAttribute("id"));
+            wishlist_str = wishlist.join("-");
+
+            url_lst = String(window.location.href).split("/");
+            url_str = url_lst.slice(0, -1).join("/") + "/" + wishlist_str;
+            window.location.href = url_str;
+
+            setTimeout(function () {
+                document.documentElement.scrollTop = document.body.scrollTop = 1200;
+                document.documentElement.scrollLeft = document.body.scrollLeft = 600;
+            }, 3000);
+        }
+    }
+
+    toggler_clicked_lst = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    wishlistBtnClass = document.getElementsByClassName("wishlist_btn");
+    for (i = 0; i < wishlistBtnClass.length; i++) {
+        wishlistBtnClass[i].addEventListener('click', clickHandler);
+        for(var j = 0; j <= wishlist.length; j++){
+            if(wishlistBtnClass[i].getAttribute("id") == wishlist[j]){
+                toggler_clicked_lst[wishlistBtnClass[i].getAttribute("id") - 1] = 1;
+                wishlistBtnClass[i].style.backgroundColor = "#fc5089";
+                break
+            }else{
+                toggler_clicked_lst[wishlistBtnClass[i].getAttribute("id") - 1] = 0;
+            }
+        }
+    }
+</script>
+
+{% endblock %}

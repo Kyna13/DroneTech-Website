@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>Signout</title>
+    <style>
+        
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="conformation_title" id="signout_title">{{ signout_text[0] }}</h1>
+    <p class="conformation_text" id="signout_text">{{ signout_text[1] }}</p>
+    <a href="{{ url_for('home', num_key = num_key, wishlist=wishlist) }}" id="signout_button" class="conformation_button">{{ signout_text[2] }}</a>
+</div>
+{% endblock %}

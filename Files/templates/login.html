@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block head %}
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    </style>
+{% endblock %}
+
+{% block content %}    
+<div class="container">
+    <form method="POST" class="login_container">
+        {{ signin_form.hidden_tag() }}
+        <h2 class="login_title">Login</h2>
+        <div class="input">
+            {{ signin_form.signin_username.label() }}
+            {{ signin_form.signin_username(class="input_field", placeholder="") }}        
+        </div>
+        <div class="input">
+            {{ signin_form.signin_password.label() }}
+            {{ signin_form.signin_password(class="input_field", placeholder="") }}
+        </div>
+        {{ signin_form.submit(class="login_btn") }}
+   </form>
+   <div id="login_background"></div>
+</div>
+<p id="signin_error" class="errors">{{ error_text }}</p>
+
+<script>
+    if (document.getElementById("signin_error").innerHTML == ""){
+        document.getElementById("signin_error").style.display = "none";
+    }
+    </script>
+{% endblock %}
